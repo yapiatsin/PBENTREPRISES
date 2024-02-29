@@ -1,0 +1,167 @@
+{% extends 'bases.html' %}
+{% block title %}
+Temps d'arrêt
+{% endblock title %}
+{% load static %}
+
+  {% block breadcrumb %}
+    <ul class="app-breadcrumb breadcrumb">
+      <li class="breadcrumb-item text-danger"><a href="{% url 'tb_garag' %}" class="btn btn-outline-light"><i style="color:red;" class="fa fa-reply-all"></i></a> <i class="fa fa-clock-o fa-lg">
+        Gestion des Arrêts
+      </i></li>
+    </ul>
+    <div style="font-size:14px">
+      <a style="height: 4%;" href="{% url 'temp_arret' %}"><i class="btn btn-outline-primary fa fa-refresh" ></i></a>
+      <a href="{% url 'listemp_arret' %}" class="btn btn-outline-primary"><i class="fa fa-th-list"> Enregistrements éffectués</i></a>
+    </div>
+  {% endblock breadcrumb %}
+
+  {% block content %}
+    <div class="">
+      <div class="clearfix"></div>
+        <div class="row">
+          {% if form_arret.is_valid %}
+            <div class="col-md-3 col-lg-3">
+                <div class="widget-small primary coloured">
+                    <i style="font-size: 24px;" class="icon fa fa-dollar"></i>
+                    <div class="info">
+                        <b>Recette: {{tot_recet}} FCFA</b>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-3">
+                <div class="widget-small danger coloured" >
+                    <i style="font-size: 24px;display:flex" class="icon fa fa-clock-o fa-3x"></i>
+                    <div class="info">
+                        <b>Temps d'arrêt: {{temps_arrets}}</b>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-3">
+                <div class="widget-small danger coloured" >
+                    <i style="font-size: 24px;display:flex" class="icon fa fa-clock-o fa-3x"></i>
+                    <div class="info">
+                        <b>Arrêt En Cours: {{temps_arret_en_cours}}</b>
+                        <p>Arrêt passé: {{temps_arret_passe}}</p>
+                    </div>
+                </div>
+            </div>
+          {% else %}
+            <div class="col-md-4 col-lg-3">
+                <div class="widget-small primary coloured">
+                    <i style="font-size: 24px;" class="icon fa fa-dollar"></i>
+                    <div class="info">
+                        <b>Recette: {{temps_arrets_recette}} FCFA</b>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <div class="widget-small danger coloured" >
+                    <i style="font-size: 24px;display:flex" class="icon fa fa-clock-o fa-3x"></i>
+                    <div class="info">
+                        <b>Temps d'arrêt: {{temps_arrets}}</b>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-3">
+                <div class="widget-small danger coloured" >
+                    <i style="font-size: 24px;display:flex" class="icon fa fa-clock-o fa-3x"></i>
+                    <div class="info">
+                        <b>Arrêt En Cours: {{temps_arret_en_cours}}</b>
+                        <p>Arrêt passés: {{temps_arret_passe}}</p>
+                    </div>
+                </div>
+            </div>
+          {% endif %}
+          <div class="col-md-3">
+            <div class="shadow-sm p-2 mb-2 bg-white rounded">
+              <div class="row">
+                <form method="get">
+                  {% csrf_token %}
+                  <div class="col-md-6">
+                    <label for="fullname"><b>Période De:</b></label>
+                    {{ form_arret.date_debut }}
+                  </div>
+                  <div class="col-md-6">
+                    <label for="fullname"><b>A:</b></label>
+                    {{ form_arret.date_fin }}
+                  </div>
+                  <div class="col-md-12 text-center">
+                    <br><input class="btn-danger" style="border-radius: 4px;" type="submit" value="Afficher">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12"></div>
+          <div class="col-md-12">
+            <div class="tile row">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  <table id="datatable-buttons" class="table table-striped table-bordered text-center" style="width:100%">
+                    <thead>
+                      <tr style="font-size: 12px;">
+                          <th style="color: red;">Immat</th>
+                          <th style="color: red;">Category</th>
+                          <th style="color: red;">Recette</th>
+                          <th style="color: red;">Temps Arrêt</th>
+                          <th style="color: red;">Nb Réparation</th>
+                          <th style="color: red;">Nb Visite</th>
+                          <th style="color: red;">Nb Entretien</th>
+                          <th style="color: red;">Nb Accident</th>
+                          <th style="color: red;">Autre</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% if temps_arret_data %}
+                      {% for v in temps_arret_data %}
+                        <tr>
+                          <td style="color: rgb(255, 0, 0);"><b>{{v.vehicule.immatriculation}}</b></td>
+                          <td>{{v.vehicule.category}}</td>
+                          <td>{{v.total_recette}}</td>
+                          <td>{{v.total_temps_arret}}</td>
+                          <td>{{v.motif_counts.Reparation}}</td>
+                          <td>{{v.motif_counts.Visite}}</td>
+                          <td>{{v.motif_counts.Entretien}}</td>
+                          <td>{{v.motif_counts.Accident}}</td>
+                          <td>{{v.motif_counts.Autre}}</td>
+                        </tr>
+                      {% endfor %}
+                    {% endif %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-md-12"><h2 class="text-center">Ajouter un Nouvel Temps d'Arrêt</h2>
+                {% if messages %}
+                  {% for msg in messages %}
+                    <div id="message" class="alert alert-success alert-dismissible fade show" role="alert">
+                      <p style="font-size: 16px;" class="text-center">{{msg}}</p>
+                    </div>
+                  {% endfor %}
+                {% endif %}
+              <br />
+              <table id="datatable" class="table table-striped table-bordered text-center" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th style="color: red;">Immat</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if vehi %}
+                      {% for v in vehi %}
+                        <tr>
+                          <td style="color: rgb(255, 0, 0);"><a style="color: rgb(0, 102, 255);" title="Click pour enregistrer"  href="{% url 'add_temparret' v.pk %}"><b>{{v.immatriculation}}</b></a></td>
+                        </tr>
+                      {% endfor %}
+                    {% endif %}
+                  </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {% endblock%}
+    

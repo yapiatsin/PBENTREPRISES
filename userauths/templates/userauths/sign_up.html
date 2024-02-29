@@ -1,0 +1,52 @@
+{% extends 'basauth.html' %}
+{% block form %}
+  <div class="form-group">
+    <div class="input-group" >
+      <div class="input-group-addon">
+        <a><i class="fa fa-user" aria-hidden="true"></i></a>
+      </div>
+      {{form.username}}
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group" >
+      <div class="input-group-addon">
+        <a><i class="fa fa-at" aria-hidden="true"></i></a>
+      </div>
+      {{form.email}}
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group" >
+      <div class="input-group-addon">
+        <a><i class="fa fa-genderless" aria-hidden="true"></i></a>
+      </div>
+      {{form.gender}}
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group" >
+      <div class="input-group-addon">
+        <a><i class="fa fa-lock" aria-hidden="true"></i></a>
+      </div>
+      {{form.password1}}
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group" >
+      <div class="input-group-addon">
+        <a><i class="fa fa-key" aria-hidden="true"></i></a>
+      </div>
+      {{form.password2}}
+    </div>
+  </div>
+  <div class="col-12 text-center">
+    <button id="con" class="btn btn-outline-primary w-50" type="submit">Connexion</button>
+  </div>
+  <div class="col-12 text-center" style="font-size: 13px;">
+    Déjà un compte? <a class="small mb-2"  href="{% url 'login' %}"> <u> Se Connecter</u></a>
+  </div>
+  <div class="col-12">
+    <p class="small mb-0 text-center">A tes resolution repondra le succes</p>
+  </div>                
+{% endblock form %}

@@ -1,0 +1,49 @@
+{% extends 'base1.html' %}
+{% block title %}
+    Interne
+{% endblock title %}
+{% load static %}
+
+{% block topbar %}
+{% endblock topbar %}
+{% block section %}
+{% endblock section %}
+
+{% block content %}
+<section id="services" class="services services">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>Bienvenue!!!</h2>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-3 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="100">
+        <div class="icon"><i class="fas fa-coins"></i></div>
+        <h4 class="title"><a href="{% url 'dash_compt' %}">COMPTABILITE</a></h4>
+      </div>
+      <div class="col-lg-3 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="200">
+        <div class="icon"><i class="fas fa-pills"></i></div>
+        <h4 class="title"><a href="{% url 'add_car' %}">CHEF DE COMPTABILITE</a></h4>
+      </div>
+      <div class="col-lg-3 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="300">
+        <div class="icon"><i class="fas fa-wrench"></i></div>
+        <h4 class="title"><a href="{% url 'tb_garag' %}">GARAGE</a></h4>
+      </div>
+      <div class="col-lg-3 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="300">
+        <div class="icon"><i class="bi bi-person-fill-lock"></i></div>
+        <h4 class="title"><a href="{% url 'dash' %}">ADMIN</a></h4>
+      </div>
+      
+    </div>
+
+  </div>
+</section>
+  
+
+{% block footer %}
+
+{% endblock footer %}
+
+
+{% endblock %}

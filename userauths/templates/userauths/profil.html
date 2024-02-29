@@ -1,0 +1,91 @@
+{% extends 'bases.html' %}
+
+{% block title %}
+  Profil
+{% endblock title %}
+{% load static %}
+
+{% block content %}
+
+<div class="right_col" role="main">
+  <div class="">
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+          <div class="x_content">
+            <div class="col-md-3 col-sm-3  profile_left">
+              <div class="profile_img">
+                <div id="crop-avatar">
+                  <!-- Current avatar -->
+                  {% if user.profile.profile_pic %}
+                      <img class="rounded-circle" style="height: 150px; width:150px" src="{{ user.profile.profile_pic.url }}" alt="" srcset="">
+                  {% else %} 
+                    {% if user.gender == 'Homme' %}
+                      <img class="rounded-circle" style="height: 150px; width:150px" src="{% static 'assets/img/profi_h.png' %}" alt="" srcset="">
+                    {% else %}
+                      <img class="rounded-circle" style="height: 150px; width:150px" src="{% static 'assets/img/profi_f.png' %}" alt="" srcset="">
+                    {% endif %}
+                  {% endif %}
+                </div>
+              </div>
+              <h3>{{user.username}}</h3>
+              <ul class="list-unstyled user_data">
+                <li><i class="fa fa-at user-profile-icon"></i> {{user.email}}</li>
+                <li>
+                  <i class="fa fa-user user-profile-icon"></i> 
+                  {% if user_group %}
+                    {{user_group}}
+                  {% else %}
+                    Client
+                  {% endif %}
+              </ul>
+            </div>
+            {% if messages %}  	
+              <div class="col-md-9 col-sm-9 ">
+                {% for msg in messages %}
+                  <div id="message" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <p style="font-size: 16px;" class="text-center">{{msg}}</p>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+            <div class="col-md-9 col-sm-9 ">
+              <div class="profile_title">
+                <div class="col-md-4">
+                  <h2>Profil {{page_user}}</h2>
+                </div>
+              </div>
+              <!-- start of user-activity-graph -->
+              <div id="" style="width:100%; height:300px;">
+                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data">
+                  <div class="col-md-12 col-sm-6  form-group">
+                      <label for="fullname"></label>
+                      <input class="form-control" type="text" value="{{user.email}}" disabled>
+                  </div>
+                  <div class="col-md-12 col-sm-6  form-group">
+                      <label for="fullname"></label>
+                      <input class="form-control" type="text" value="{{user.gender}}" disabled>     
+                  </div>
+                  <div class="col-md-12 col-sm-6  form-group">
+                      <label for="fullname"></label>
+                      <input class="form-control" type="text" value="{{profile.profession}}" disabled>     
+                  </div>
+                  <div class="col-md-12 col-sm-6  form-group">
+                      <label for="fullname"></label>
+                      <input class="form-control" type="text" value="{{profile.commune}}" disabled>     
+                  </div>
+                  <div class="col-md-4 col-sm-6 form-group">
+                    <a class="btn btn-outline-primary" href="{% url 'chang_pass' %}"><i class="fa fa-edit m-right-xs"></i> Changer Mot de Passe</a>
+                  </div>
+                </form>
+              </div>
+              <!-- end of user-activity-graph -->
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}      
